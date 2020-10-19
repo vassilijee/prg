@@ -1,0 +1,147 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace WindowsFormsApp1
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private double proveri(TextBox t)
+        {
+            double broj = 0;
+            try
+            {
+                broj = Convert.ToDouble(t.Text);
+            }
+            catch (Exception poruka)
+            {
+                MessageBox.Show(poruka.Message, "Error");
+                throw;
+            }
+
+            return broj;
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            double rez = proveri(textBox1) + proveri(textBox2);
+
+            label3.Text = $"x + y = {rez}";
+        }
+    }
+}
+
+
+//////////////////////////////////////////////////////////////// zadatak 2
+
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Drawing.Text;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace WindowsFormsApp2
+{
+    public partial class Form1 : Form
+    {
+        private List<int> brojevi;
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private int provera(TextBox t)
+        {
+            int broj = 0;
+
+            try
+            {
+                broj = Convert.ToInt32(t.Text);
+            }
+            catch (Exception poruka)
+            {
+                MessageBox.Show(poruka.Message, "Error");
+            }
+
+            return broj;
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            button3.Enabled = false;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            brojevi = new List<int>();
+            var seed = provera(textBox1);
+            var n = provera(textBox2);
+            var min = provera(textBox3);
+            var max = provera(textBox4);
+
+            var random = new Random(seed);
+            for (int i = 0; i < n; i++)
+            {
+                brojevi.Add(random.Next(min, max));
+            }
+
+            cisti_ispisi(listBox1);
+        }
+
+        private void cisti_ispisi(ListBox l)
+        {
+            l.Items.Clear();
+            foreach (var broj in brojevi)
+            {
+                l.Items.Add(broj);
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            brojevi.Clear();
+            cisti_ispisi(listBox1);
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+            button3.Enabled = true;
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var broj = provera(textBox5);
+            brojevi.Add(broj);
+            cisti_ispisi(listBox1);
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            button4.Enabled = true;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            brojevi.Remove(listBox1.SelectedIndex);
+            cisti_ispisi(listBox1);
+            button4.Enabled = false;
+        }
+    }
+}
+
+
