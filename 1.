@@ -65,6 +65,8 @@ namespace WindowsFormsApp2
             InitializeComponent();
         }
 
+https://imgur.com/a/gWHSqtH
+
         private int provera(TextBox t)
         {
             int broj = 0;
